@@ -3,18 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 // Import sockets functions
-const socketsController = require('../controllers/socketsController');
-// Import nightmare functions
-const nightmareController = require('../controllers/nightmareController');
+// const socketsController = require('../controllers/socketsController');
+// // Import nightmare functions
+// const nightmareController = require('../controllers/nightmareController');
 // Import db functions
-const dbController = require('../controllers/dbController');
-
-// Handle POST request to '/api/go' containing user input data which will
-// initiate a web socket connection with the client and a nightmare instance
-// router.post('/api/go', 
-//   nightmareController.init,
-//   (req, res) => res.status(200)
-// );
+const dbController = require('../controllers/dbController')(socket);
 
 // Handle POST request to '/api/recieve' containing information sent by
 // nightmare
@@ -22,6 +15,14 @@ const dbController = require('../controllers/dbController');
 //   dbController.save,
 //   socketsController.emit,
 //   (req, res) => res.status(200).send('Success')
+// );
+
+// Handle POST request to '/api/go' containing user input data which will
+// initiate a web socket connection with the client and a nightmare instance
+// router.post('/go', 
+//   socketsController.init,
+//   nightmareController.init,
+//   (req, res) => res.status(200)
 // );
 
 router.post('/receive',
@@ -37,3 +38,4 @@ router.all('*', (req, res, next) => {
 });
 
 module.exports = router;
+
